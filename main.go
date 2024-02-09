@@ -1,19 +1,40 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func main() {
-	var i interface{}
-	describe1(i)
-
-	i = 42
-	describe1(i)
-
-	i = "hello"
-	describe1(i)
-    describe1([]int{1, 1, 1})
+//Shape shape interface
+type Shape interface {
+    Area() int
 }
 
-func describe1(i interface{}) {
-	fmt.Printf("(%v, %T)\n", i, i)
+//Square class
+type Square struct {
+    Length int
+}
+
+//Area implementation for square class
+func (s Square) Area() int {
+    return s.Length * s.Length
+}
+// Rectangle class
+type Rectangle struct {
+    Lenght int
+    Width  int
+}
+// Area imlementation for square class
+func (r Rectangle) Area() int {
+    return r.Lenght * r.Width
+}
+
+func main() {
+    s := Square{Length: 10}
+    r := Rectangle{Lenght: 10, Width: 20}
+    
+    shapeList := []Shape{s, r}
+
+    for _, value := range shapeList {
+        fmt.Printf("type : %T, Area : %d\n", value, value.Area())
+    }
 }
