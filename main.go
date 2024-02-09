@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func example1() {
+func main() {
 	var i interface{}
 	describe1(i)
 
@@ -11,6 +11,7 @@ func example1() {
 
 	i = "hello"
 	describe1(i)
+    describe1([]int{1, 1, 1})
 }
 
 func describe1(i interface{}) {
