@@ -36,27 +36,38 @@ func printLog(pChannel chan interface{}) {
             fmt.Println("pChannel Closed")
             return
         }
-
-        fmt.Println(v)
+        switch v.(type) {
+        case int:
+            fmt.Printf("Type int, value : %d\n", v.(int))
+        case string:
+            fmt.Printf("Type string, value : %d\n", v.(string))
+        case Square :
+            fmt.Printf("Type Square, value : %d\n", v.(Square).Length)
+        case Rectangle :
+            fmt.Printf("Type Rectangle, value : %d , %d\n", v.(Rectangle).Lenght, v.(Rectangle).Width)
+        default :
+            fmt.Printf("Not Supported Type, value : %v \n", v)
+        }
     }
 }
 func main() {
+    LogChannel := make(chan interface{}, 10)
     s := Square{Length: 10}
     r := Rectangle{Lenght: 10, Width: 20}
 
-        LogChannel := make(chan interface{}, 10)
+
 
             go printLog(LogChannel)
 
-            time.Sleep(1 * time.Second)
+
 
 
             LogChannel <- "test"
             LogChannel <- "1234"
-            LogChannel <- "!@#4"
-            LogChannel <- "t1!"
+            LogChannel <- s
+            LogChannel <- r
 
-    
+    time.Sleep(5 * time.Second)
     shapeList := []Shape{s, r}
 
     for _, value := range shapeList {
